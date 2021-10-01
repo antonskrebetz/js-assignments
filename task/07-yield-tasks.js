@@ -169,6 +169,7 @@ function* breadthTraversalTree(root) {
  *   [ 0 ], [ 2, 4, 6, ... ]  => [ 0, 2, 4, 6, ... ]
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
+// eslint-disable-next-line require-yield
 function* mergeSortedSequences(source1, source2) {
   throw new Error('Not implemented');
 }

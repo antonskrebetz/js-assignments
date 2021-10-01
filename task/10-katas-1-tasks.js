@@ -19,9 +19,10 @@ function createCompassPoints(sides = ['N', 'E', 'S', 'W']) {
   /* use array of cardinal directions only! it is a default parameter! */
   const resl = [];
   let azimuth = 0;
-  const abb = ['N','NbE','NNE','NEbN','NE','NEbE','ENE','EbN','E','EbS','ESE', 
-    'SEbE','SE','SEbS','SSE','SbE', 'S','SbW','SSW','SWbS','SW','SWbW',
-    'WSW','WbS', 'W','WbN','WNW','NWbW','NW','NWbN','NNW','NbW'];
+  const abb = ['N', 'NbE', 'NNE', 'NEbN', 'NE', 'NEbE', 'ENE', 'EbN', 
+    'E', 'EbS', 'ESE', 'SEbE', 'SE', 'SEbS', 'SSE', 'SbE', 'S', 'SbW',
+    'SSW', 'SWbS', 'SW', 'SWbW', 'WSW', 'WbS', 'W', 'WbN', 'WNW', 'NWbW', 
+    'NW', 'NWbN', 'NNW', 'NbW'];
   for (let i = 0; i < 32; i++) {
     resl.push({abbreviation: abb[i], azimuth: azimuth});
     azimuth += 11.25;
@@ -64,6 +65,7 @@ function createCompassPoints(sides = ['N', 'E', 'S', 'W']) {
  *
  *   'nothing to do' => 'nothing to do'
  */
+// eslint-disable-next-line require-yield
 function* expandBraces(str) {
   throw new Error('Not implemented');
 }

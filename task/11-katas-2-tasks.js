@@ -60,7 +60,7 @@ function parseBankAccount(bankAccount) {
   }
   const resl = [];
   for (let i = 0; i < arr.length; i++) {
-    for (let j in numbers) {
+    for (const j in numbers) {
       if (arr[i] === numbers[j]) resl.push(j);
     }
   }
@@ -201,6 +201,7 @@ function getPokerHandRank(hand) {
  *    '|             |\n'+              '+-----+\n'           '+-------------+\n'
  *    '+-------------+\n'
  */
+// eslint-disable-next-line require-yield
 function* getFigureRectangles(figure) {
   throw new Error('Not implemented');
 }

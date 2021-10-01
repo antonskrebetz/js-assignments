@@ -45,6 +45,7 @@ function findStringInSnakingPuzzle(puzzle, searchStr) {
  *    'ab'  => 'ab','ba'
  *    'abc' => 'abc','acb','bac','bca','cab','cba'
  */
+// eslint-disable-next-line require-yield
 function* getPermutations(chars) {
   throw new Error('Not implemented');
 }
