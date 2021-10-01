@@ -25,7 +25,7 @@
  *
  */
 function getComposition(f, g) {
-  throw new Error('Not implemented');
+  return x => f(g(x));
 }
 
 
@@ -46,7 +46,7 @@ function getComposition(f, g) {
  *
  */
 function getPowerFunction(exponent) {
-  throw new Error('Not implemented');
+  return x => Math.pow(x, exponent);
 }
 
 
@@ -63,8 +63,11 @@ function getPowerFunction(exponent) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom() {
-  throw new Error('Not implemented');
+function getPolynom(...args) {
+  if (args.length === 0) return null;
+  if (args.length === 3) return x => args[0] * (x * x) + args[1] * x + args[2];
+  if (args.length === 2) return x => args[0] * x + args[1];
+  return x => args[0];
 }
 
 
@@ -83,7 +86,8 @@ function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(func) {
-  throw new Error('Not implemented');
+  const random = func();
+  return func => random;
 }
 
 
@@ -103,7 +107,17 @@ function memoize(func) {
  * retryer() => 2
  */
 function retry(func, attempts) {
-  throw new Error('Not implemented');     
+  return x => {
+    let attempt = 0;
+    
+    while (attempt < attempts) {
+      try {
+        return func();
+      } catch (error) {
+        attempt++;
+      }
+    } throw new Error('Error');
+  };
 }
 
 
@@ -130,10 +144,10 @@ function retry(func, attempts) {
  * cos(3.141592653589793) ends
  *
  */
+
 function logger(func, logFunc) {
   throw new Error('Not implemented');
 }
-
 
 /**
  * Return the function with partial applied arguments
@@ -149,7 +163,7 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn) {
-  throw new Error('Not implemented');
+  return fn.bind.apply(fn, Array.apply(null, arguments));
 }
 
 
@@ -171,7 +185,7 @@ function partialUsingArguments(fn) {
  *   getId10() => 11
  */
 function getIdGeneratorFunction(startFrom) {
-  throw new Error('Not implemented');
+  return () => startFrom++;
 }
 
 module.exports = {

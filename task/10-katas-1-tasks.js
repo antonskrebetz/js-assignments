@@ -17,7 +17,16 @@
  */
 function createCompassPoints(sides = ['N', 'E', 'S', 'W']) {
   /* use array of cardinal directions only! it is a default parameter! */
-  throw new Error('Not implemented');
+  const resl = [];
+  let azimuth = 0;
+  const abb = ['N','NbE','NNE','NEbN','NE','NEbE','ENE','EbN','E','EbS','ESE', 
+    'SEbE','SE','SEbS','SSE','SbE', 'S','SbW','SSW','SWbS','SW','SWbW',
+    'WSW','WbS', 'W','WbN','WNW','NWbW','NW','NWbN','NNW','NbW'];
+  for (let i = 0; i < 32; i++) {
+    resl.push({abbreviation: abb[i], azimuth: azimuth});
+    azimuth += 11.25;
+  }
+  return resl;
 }
 
 
@@ -89,7 +98,25 @@ function* expandBraces(str) {
  *
  */
 function getZigZagMatrix(n) {
-  throw new Error('Not implemented');
+  const matrix = [];
+  for (let i = 0; i < n; i++) {
+    matrix[i] = [];
+  }
+
+  let i = 1, j = 1;
+  for (let k = 0; k < n * n; k++) {
+    matrix[i-1][j-1] = k;
+    if ((i + j) % 2 === 0) {
+      // eslint-disable-next-line no-unused-expressions
+      j < n ? j ++ : i += 2;
+      if (i > 1) i --;
+    } else {       
+      // eslint-disable-next-line no-unused-expressions
+      i < n ? i++ : j += 2;
+      if (j > 1) j--;
+    }
+  }
+  return matrix;
 }
 
 
@@ -115,7 +142,17 @@ function getZigZagMatrix(n) {
  *
  */
 function canDominoesMakeRow(dominoes) {
-  throw new Error('Not implemented');
+  const resl = [...dominoes];
+  let curDomino = resl[0];
+
+  for (let k = 0; k < dominoes.length; k++) {
+    for(let i = 0; i < resl.length; i++) {
+      const domino = resl[i];
+      const value = curDomino.some(el => el === domino[0] || el === domino[1]);
+      if (value) curDomino = resl.splice(i, 1)[0];
+    }
+  }
+  return !resl.length;
 }
 
 
@@ -141,7 +178,21 @@ function canDominoesMakeRow(dominoes) {
  * [ 1, 2, 4, 5]          => '1,2,4,5'
  */
 function extractRanges(nums) {
-  throw new Error('Not implemented');
+  const len = nums.length;
+  let start, end;
+  const result = [];
+ 
+  for (start = 0; start < len; start = end + 1) {
+    result.push(nums[start]);
+    for (end = start + 1; end < len && nums[end] === nums[end-1] + 1; end++);
+    end--;
+    if (start === end) result.push(',');
+    else if (start + 1 === end) result.push(',', nums[end], ',');
+    else result.push('-', nums[end], ',');
+  }
+  result.pop();
+  
+  return result.join('');
 }
 
 module.exports = {

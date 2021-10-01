@@ -36,7 +36,35 @@
  *
  */
 function parseBankAccount(bankAccount) {
-  throw new Error('Not implemented');
+  const numbers = {
+    0 :' _ | ||_|',
+    1 :'     |  |',
+    2 :' _  _||_ ',
+    3 :' _  _| _|',
+    4 :'   |_|  |',
+    5 :' _ |_  _|',
+    6 :' _ |_ |_|',
+    7 :' _   |  |',
+    8 :' _ |_||_|',
+    9 :' _ |_| _|'
+  };
+
+  const arr = [];
+  const str = bankAccount.split('\n');
+  for (let i = 0; i < str[0].length; i += 3) {
+    const temp = [];
+    temp.push(str[0].slice(i, i+3));
+    temp.push(str[1].slice(i, i+3));
+    temp.push(str[2].slice(i, i+3));
+    arr.push(temp.join(''));
+  }
+  const resl = [];
+  for (let i = 0; i < arr.length; i++) {
+    for (let j in numbers) {
+      if (arr[i] === numbers[j]) resl.push(j);
+    }
+  }
+  return +resl.join('');
 }
 
 
@@ -68,7 +96,18 @@ function parseBankAccount(bankAccount) {
  *      'characters.'
  */
 function* wrapText(text, columns) {
-  throw new Error('Not implemented');
+  const textArr = text.split(' ');
+  let resl = [];
+  for (let i = 0; i < textArr.length; i++) {
+    if (resl.join(' ').length + textArr[i].length < columns) {
+      resl.push(textArr[i]);
+    } else {
+      yield resl.join(' ');
+      resl = []; 
+      i--;
+    }
+  }
+  yield resl.join(' ');
 }
 
 
@@ -105,7 +144,29 @@ const PokerRank = {
 };
 
 function getPokerHandRank(hand) {
-  throw new Error('Not implemented');
+  const faces = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 
+    'J', 'Q', 'K', 'A'];
+  const suits = ['♥', '♦', '♣', '♠'];
+  const HandFaces = hand.map(el => faces.indexOf(el.slice(0, -1)));
+  const HandSuits = hand.map(el => suits.indexOf(el.slice(-1)));
+  const flush = HandSuits.every(el => el === HandSuits[0]);
+  const groups = faces.map( (el, i) => HandFaces
+    .filter(el => i === el).length)
+    .sort((a, b) => b - a);
+  const shift = HandFaces.map(el => (el + 1) % 13);
+  const distance = Math.min( Math.max(...HandFaces) - Math.min(...HandFaces), 
+    Math.max(...shift) - Math.min(...shift));
+  const straight = groups[0] === 1 && distance < 5;
+
+  if (straight && flush)                  return PokerRank.StraightFlush;
+  if (groups[0] === 4)                    return PokerRank.FourOfKind;
+  if (groups[0] === 3 && groups[1] === 2) return PokerRank.FullHouse;
+  if (flush)                              return PokerRank.Flush;
+  if (straight)                           return PokerRank.Straight;
+  if (groups[0] === 3)                    return PokerRank.ThreeOfKind;
+  if (groups[0] === 2 && groups[1] === 2) return PokerRank.TwoPairs;
+  if (groups[0] === 2)                    return PokerRank.OnePair;
+  return PokerRank.HighCard;
 }
 
 

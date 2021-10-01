@@ -18,5 +18,8 @@
   "repository": {
     "type": "git",
     "url": "git@git.github.com:it-shark-pro/js-assignments.git"
+  },
+  "dependencies": {
+    "jshint": "^2.13.1"
   }
 }
