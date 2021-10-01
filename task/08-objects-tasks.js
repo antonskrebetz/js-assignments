@@ -159,6 +159,7 @@ const cssSelectorBuilder = {
   },
 
   combine: function (selector1, combinator, selector2) {
+    // eslint-disable-next-line max-len
     this.result = selector1.stringify() + ' ' + combinator + ' ' + selector2.stringify();
     return this.createSelector();
   },
@@ -169,13 +170,15 @@ const cssSelectorBuilder = {
 
   checkOrder: function (n) {
     if (n < this.order) {
+      // eslint-disable-next-line max-len
       throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
     }
     this.order = n;
   },
 
   createSelector: function (elem) {
-    let obj = {...this};
+    const obj = Object.assign({}, this);
+    // eslint-disable-next-line max-len
     obj[elem] = () => {throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector')};
     this.result = '';
     this.order = 0;
