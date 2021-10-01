@@ -179,11 +179,11 @@ const cssSelectorBuilder = {
   createSelector: function (elem) {
     const obj = Object.assign({}, this);
     // eslint-disable-next-line max-len
-    obj[elem] = () => {throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector')};
+    obj[elem] = () => {throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');};
     this.result = '';
     this.order = 0;
     return obj;
-  },
+  }
 };
 
 module.exports = {
