@@ -47,7 +47,24 @@ function findStringInSnakingPuzzle(puzzle, searchStr) {
  */
 // eslint-disable-next-line require-yield
 function* getPermutations(chars) {
-  throw new Error('Not implemented');
+  const arr = chars.split('');
+  const c = Array(arr.length).fill(0);    
+  let k, p, i = 1; 
+  yield arr.join('');
+  while (i < arr.length) {
+    if (c[i] < i) {
+      k = i % 2 && c[i];
+      p = arr[i];
+      arr[i] = arr[k];
+      arr[k] = p;
+      ++c[i];
+      i = 1;
+      yield arr.join('');
+    } else {
+      c[i] = 0;
+      ++i;
+    }
+  }
 }
 
 
@@ -93,18 +110,25 @@ function getMostProfitFromStockQuotes(quotes) {
  *
  */
 function UrlShortener() {
-  this.urlAllowedChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
-                          'abcdefghijklmnopqrstuvwxyz' +
-                          "0123456789-_.~!*'();:@&=+$,/?#[]";
+  this.urlAllowedChars =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
+    'abcdefghijklmnopqrstuvwxyz' +
+    '0123456789-_.~!*\'();:@&=+$,/?#[]';
+  this.longUrl = '';
 }
 
 UrlShortener.prototype = {
   encode(url) {
-    throw new Error('Not implemented');
+    let random = () => Math.floor(Math.random() * (84 - 1)) + 1;
+    const shortUrl = 'en.wikipedia.org/' + url.slice(-10).split('').map(el => el = this.urlAllowedChars[random()]).join('');
+    if (!this.longUrl) {
+      this.longUrl = url
+    }
+    return shortUrl
   },
 
   decode(code) {
-    throw new Error('Not implemented');
+    return this.longUrl;
   }
 };
 

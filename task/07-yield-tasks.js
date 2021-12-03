@@ -171,7 +171,15 @@ function* breadthTraversalTree(root) {
  */
 // eslint-disable-next-line require-yield
 function* mergeSortedSequences(source1, source2) {
-  throw new Error('Not implemented');
+  const first = source1(), second = source2();
+  let a = first.next(), b = second.next();
+
+  while (true) {
+    if (a.value < b.value) { yield a.value; a = first.next()}; 
+    if (b.value < a.value) { yield b.value; b = second.next()};
+    if (a.done) { yield b.value; b = second.next()};
+    if (b.done) { yield a.value; a = first.next()}; 
+  }
 }
 
 module.exports = {
