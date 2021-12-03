@@ -119,12 +119,13 @@ function UrlShortener() {
 
 UrlShortener.prototype = {
   encode(url) {
-    let random = () => Math.floor(Math.random() * (84 - 1)) + 1;
-    const shortUrl = 'en.wikipedia.org/' + url.slice(-10).split('').map(el => el = this.urlAllowedChars[random()]).join('');
+    const random = () => Math.floor(Math.random() * (84 - 1)) + 1;
+    const shortUrl = 'en.wikipedia.org/' + url.slice(-10).split('')
+      .map(el => el = this.urlAllowedChars[random()]).join('');
     if (!this.longUrl) {
-      this.longUrl = url
+      this.longUrl = url;
     }
-    return shortUrl
+    return shortUrl;
   },
 
   decode(code) {

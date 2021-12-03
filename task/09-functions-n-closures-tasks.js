@@ -152,7 +152,7 @@ function logger(func, logFunc) {
     const resl = func(...args);
     logFunc(`${func.name}(${str}) ends`);
     return resl;
-  }
+  };
 }
 
 /**
